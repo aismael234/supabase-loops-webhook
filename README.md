@@ -2,7 +2,7 @@
 
 A Next.js serverless function that acts as a middleware to transform Supabase webhook payloads into Loops.so-compatible contact creation requests.
 
-[Image of the webhook history](./public/screen.png)
+![image](/public/screen.png)
 
 ## 🌟 Overview
 
