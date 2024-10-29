@@ -14,7 +14,8 @@ export async function POST(request: Request) {
   // Transform the payload for Loops
   const loopsPayload = {
     email: payload.record.email,
-    userId: payload.record.id
+    userId: payload.record.id,
+    userType: payload.record.user_type
   };
 
   // Store the webhook data
@@ -24,8 +25,8 @@ export async function POST(request: Request) {
     transformed: loopsPayload
   });
 
-  // Forward to Loops
-  const loopsResponse = await forwardToLoops(loopsPayload);
+  // Forward to Loops based on operation type
+  const loopsResponse = await forwardToLoops(payload.type, loopsPayload);
   return NextResponse.json({ success: true, loopsResponse });
 }
 
@@ -33,12 +34,20 @@ export async function GET() {
   return NextResponse.json({ history: webhookStorage.getHistory() });
 }
 
-async function forwardToLoops(payload: any) {
+async function forwardToLoops(operation: string, payload: any) {
   const loopsApiKey = process.env.LOOPS_API_KEY;
-  const loopsEndpoint = 'https://app.loops.so/api/v1/contacts/create';
+  const endpoints = {
+    'INSERT': { url: 'https://app.loops.so/api/v1/contacts/create', method: 'POST' },
+    'UPDATE': { url: 'https://app.loops.so/api/v1/contacts/update', method: 'PUT' }
+  };
 
-  const response = await fetch(loopsEndpoint, {
-    method: 'POST',
+  const config = endpoints[operation as keyof typeof endpoints];
+  if (!config) {
+    throw new Error(`Unsupported operation: ${operation}`);
+  }
+
+  const response = await fetch(config.url, {
+    method: config.method,
     headers: {
       'Accept': 'application/json',
       'Authorization': `Bearer ${loopsApiKey}`,
