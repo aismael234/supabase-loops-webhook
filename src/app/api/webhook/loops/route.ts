@@ -26,41 +26,42 @@ export async function POST(request: Request) {
   });
 
   // Forward to Loops based on operation type
-  const loopsResponse = await forwardToLoops(payload.type, loopsPayload);
-  return NextResponse.json({ success: true, loopsResponse });
+  // const loopsResponse = await forwardToLoops(payload.type, loopsPayload);
+  return NextResponse.json({ success: true });
+  // , loopsResponse });
 }
 
 export async function GET() {
   return NextResponse.json({ history: webhookStorage.getHistory() });
 }
 
-async function forwardToLoops(operation: string, payload: unknown) {
-  const loopsApiKey = process.env.LOOPS_API_KEY;
-  const endpoints = {
-    INSERT: {
-      url: "https://app.loops.so/api/v1/contacts/create",
-      method: "POST",
-    },
-    UPDATE: {
-      url: "https://app.loops.so/api/v1/contacts/update",
-      method: "PUT",
-    },
-  };
+// async function forwardToLoops(operation: string, payload: unknown) {
+//   const loopsApiKey = process.env.LOOPS_API_KEY;
+//   const endpoints = {
+//     INSERT: {
+//       url: "https://app.loops.so/api/v1/contacts/create",
+//       method: "POST",
+//     },
+//     UPDATE: {
+//       url: "https://app.loops.so/api/v1/contacts/update",
+//       method: "PUT",
+//     },
+//   };
 
-  const config = endpoints[operation as keyof typeof endpoints];
-  if (!config) {
-    throw new Error(`Unsupported operation: ${operation}`);
-  }
+//   const config = endpoints[operation as keyof typeof endpoints];
+//   if (!config) {
+//     throw new Error(`Unsupported operation: ${operation}`);
+//   }
 
-  const response = await fetch(config.url, {
-    method: config.method,
-    headers: {
-      Accept: "application/json",
-      Authorization: `Bearer ${loopsApiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+//   const response = await fetch(config.url, {
+//     method: config.method,
+//     headers: {
+//       Accept: "application/json",
+//       Authorization: `Bearer ${loopsApiKey}`,
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(payload),
+//   });
 
-  return response.json();
-}
+//   return response.json();
+// }
