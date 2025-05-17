@@ -1,6 +1,6 @@
 export interface WebhookEntry {
   timestamp: string;
-  payload: any;
+  payload: unknown;
   transformed: {
     email: string;
     userId: string;
@@ -22,4 +22,4 @@ class WebhookStorage {
 }
 
 // Create a singleton instance
-export const webhookStorage = new WebhookStorage(); 
+export const webhookStorage = new WebhookStorage();

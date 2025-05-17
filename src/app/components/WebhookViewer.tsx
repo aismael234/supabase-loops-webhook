@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 interface WebhookEntry {
   timestamp: string;
-  payload: any;
+  payload: unknown;
   transformed: {
     email: string;
     userId: string;
@@ -20,11 +20,11 @@ export default function WebhookViewer() {
   const fetchHistory = async () => {
     try {
       setRefreshing(true);
-      const response = await fetch('/api/webhook/loops');
+      const response = await fetch("/api/webhook/loops");
       const data = await response.json();
       setHistory(data.history);
     } catch (error) {
-      console.error('Failed to fetch webhook history:', error);
+      console.error("Failed to fetch webhook history:", error);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -54,12 +54,13 @@ export default function WebhookViewer() {
             onClick={fetchHistory}
             disabled={refreshing}
             className={`text-xs font-mono px-2 py-1 rounded border border-gray-200 dark:border-gray-700
-              ${refreshing 
-                ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed' 
-                : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors'
+              ${
+                refreshing
+                  ? "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-600 cursor-not-allowed"
+                  : "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               }`}
           >
-            {refreshing ? 'Refreshing...' : 'Refresh'}
+            {refreshing ? "Refreshing..." : "Refresh"}
           </button>
         </div>
         <span className="text-xs font-mono text-gray-500 dark:text-gray-400">
@@ -70,8 +71,18 @@ export default function WebhookViewer() {
       {history.length === 0 ? (
         <div className="p-8 text-center">
           <div className="inline-block p-3 bg-gray-100 dark:bg-gray-800 rounded-full mb-3">
-            <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            <svg
+              className="w-6 h-6 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
             </svg>
           </div>
           <p className="text-sm text-gray-500 dark:text-gray-400 font-mono">
@@ -93,7 +104,7 @@ export default function WebhookViewer() {
                   POST
                 </span>
               </div>
-              
+
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <h3 className="text-xs font-mono font-semibold text-gray-500 dark:text-gray-400">
@@ -118,4 +129,4 @@ export default function WebhookViewer() {
       )}
     </div>
   );
-} 
+}
