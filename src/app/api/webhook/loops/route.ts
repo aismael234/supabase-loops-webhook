@@ -10,11 +10,12 @@ export async function POST(request: Request) {
   // }
 
   const payload = await request.json();
-
+  console.log("Received payload:", payload);
   // Transform the payload for Loops
   const loopsPayload = {
     email: payload.record.email,
     userId: payload.record.id,
+    fullName: payload.record.full_name,
     userType: payload.record.user_type,
   };
 
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
     payload,
     transformed: loopsPayload,
   });
-
+  console.log(webhookStorage.getHistory());
   // Forward to Loops based on operation type
   // const loopsResponse = await forwardToLoops(payload.type, loopsPayload);
   return NextResponse.json({ success: true });
