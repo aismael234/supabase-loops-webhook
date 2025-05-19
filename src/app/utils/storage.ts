@@ -3,7 +3,9 @@ export interface WebhookEntry {
   payload: unknown;
   transformed: {
     email: string;
-    // userId: string;
+    fullName: string;
+    userId: string;
+    userType: string;
   };
 }
 

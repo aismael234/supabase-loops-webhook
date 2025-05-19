@@ -7,6 +7,7 @@ interface WebhookEntry {
   payload: unknown;
   transformed: {
     email: string;
+    fullName: string;
     userId: string;
     userType: string;
   };
