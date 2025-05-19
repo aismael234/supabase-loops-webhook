@@ -13,10 +13,10 @@ export async function POST(request: Request) {
   console.log("Received payload:", payload);
   // Transform the payload for Loops
   const loopsPayload = {
-    email: payload.record.email,
-    userId: payload.record.id,
-    fullName: payload.record.full_name,
-    userType: payload.record.user_type,
+    email: payload.email,
+    // userId: payload.id,
+    fullName: payload.full_name,
+    userType: payload.user_type,
   };
 
   // Store the webhook data
