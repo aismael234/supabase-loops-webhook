@@ -4,8 +4,8 @@ export interface WebhookEntry {
   transformed: {
     email: string;
     fullName: string;
-    userId: string;
-    userType: string;
+    id: string;
+    userGroup: string;
   };
 }
 
