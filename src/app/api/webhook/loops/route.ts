@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   // Transform the payload for Loops
   const loopsPayload = {
     email: payload.email,
-    // userId: payload.id,
+    userId: payload.id,
     fullName: payload.full_name,
     userType: payload.user_type,
   };
