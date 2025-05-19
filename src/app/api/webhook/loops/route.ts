@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 import { webhookStorage } from "../../../utils/storage";
 
 export async function POST(request: Request) {
-  const webhookSecret = process.env.WEBHOOK_SECRET;
-  const secretHeader = request.headers.get("X-Webhook-Secret");
+  // const webhookSecret = process.env.WEBHOOK_SECRET;
+  // const secretHeader = request.headers.get("X-Webhook-Secret");
 
-  if (secretHeader !== webhookSecret) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // if (secretHeader !== webhookSecret) {
+  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // }
 
   const payload = await request.json();
 
